@@ -37,3 +37,102 @@
     }
   }
 }
+
+// Menu Overlay
+
+.menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  opacity: 0.93; // To be able to see the page behind.
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+  }
+
+  &-branding,
+  &-nav {
+    // This males and separate the nave bar "page" in 2
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  &-nav {
+    // Nav bar section with menu
+    margin: 0;
+    padding: 0;
+    background: darken($primary-color, 5);
+    list-style: none;
+    transform: translate3d(0, -100%, 0);
+    @include easeout;
+
+    &.show {
+      // When the SHOW is applied, menu slides from Top
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  // Branding Side Styling..Nav bar section with pic
+  &-branding {
+    background: $primary-color;
+    transform: translate3d(0, 100%, 0);
+    @include easeout;
+
+    &.show {
+      // When the SHOW is applied, menu slides from Bottom
+      transform: translate3d(0, 0, 0);
+    }
+
+    .portrait {
+      width: 250px;
+      height: 250px;
+      background: url("../img/portrait.jpg");
+      border-radius: 50%;
+      border: solid 3px $secondary-color;
+    }
+  }
+
+  .nav-item {
+    transform: translate3d(600px, 0, 0);
+    @include easeout;
+
+    &.show {
+      // When the SHOW is applied, menu slides from right
+      transform: translate3d(0, 0, 0);
+    }
+
+    &.current > a {
+      color: $secondary-color;
+    }
+  }
+
+  .nav-link {
+    display: inline-block;
+    position: relative;
+    font-size: 30px;
+    text-transform: uppercase;
+    padding: 1rem 0;
+    font-weight: 300;
+    color: #fff;
+    text-decoration: none;
+    @include easeout;
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}
+
+// Delay How The Menus Items Appear By 0.2s
+@for $x from 1 through 4 {
+  .nav-item:nth-child(#{$x}) {
+    transition-delay: $x * 0.1s;
+  }
+}
